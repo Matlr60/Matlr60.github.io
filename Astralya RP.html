@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Astralya RP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* RESET */
+html, body {
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  font-family:Arial,sans-serif;
+}
+
+/* HERO */
+.hero {
+  position:relative;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+}
+.hero img.background {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.hero .overlay {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+}
+.hero .content {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-align:center;
+  animation:fadeIn 1.5s ease forwards;
+}
+.hero .logo {
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:20px;
+  box-shadow:0 0 25px rgba(255,80,160,0.7);
+}
+.hero h1 {
+  font-size:60px;
+  margin-bottom:20px;
+}
+
+/* BOUTON */
+.hero .btn {
+  padding:15px 40px;
+  font-size:18px;
+  background:transparent;
+  border:2px solid #ff4fa3;
+  color:#ff4fa3;
+  cursor:pointer;
+  border-radius:50px;
+  box-shadow:0 0 10px #ff4fa3, 0 0 20px #ff4fa3;
+  animation:glowPulse 2s infinite alternate;
+}
+.hero .btn:hover {
+  background:#ff4fa3;
+  color:#111;
+  transform:scale(1.1);
+}
+
+/* SECTION BAS */
+.bottom-section {
+  padding:80px 20px;
+  background:#111;
+  color:white;
+  text-align:center;
+}
+.bottom-section h2 {
+  font-size:36px;
+  margin-bottom:30px;
+}
+.bottom-section .links {
+  display:flex;
+  justify-content:center;
+  gap:50px;
+  flex-wrap:wrap;
+  font-size:20px;
+}
+.bottom-section .links a {
+  color:#ff4fa3;
+  text-decoration:none;
+}
+.bottom-section .links a:hover {
+  color:white;
+}
+
+/* MODALES */
+.modal {
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(0.7);
+  width:90%;
+  max-width:500px;
+  background:#111;
+  border-radius:10px;
+  padding:25px 35px;
+  box-shadow:0 0 30px rgba(255,80,160,0.8);
+  color:white;
+  opacity:0;
+  pointer-events:none;
+  transition:0.4s;
+}
+.modal.show {
+  opacity:1;
+  pointer-events:auto;
+  transform:translate(-50%,-50%) scale(1);
+}
+.modal-header {
+  display:flex;
+  justify-content:space-between;
+}
+.close-btn {
+  background:none;
+  border:none;
+  color:white;
+  font-size:25px;
+  cursor:pointer;
+}
+
+/* INFOS SERVEUR */
+.players-box {
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:rgba(17,17,17,0.9);
+  color:white;
+  padding:15px 20px;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(255,79,163,0.6);
+  font-size:14px;
+  z-index:100;
+  backdrop-filter:blur(6px);
+}
+#status {
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(30px);}
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes glowPulse {
+  from {box-shadow:0 0 10px #ff4fa3;}
+  to {box-shadow:0 0 30px #ff4fa3;}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{font-size:30px;}
+  .hero .logo{width:100px;height:100px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="fond-site-gta.png" class="background" alt="Fond Astralya RP">
+  <div class="overlay"></div>
+  <div class="content">
+    <img src="logo-Astralya.png" class="logo" alt="Logo Astralya RP">
+    <h1>ASTRALYA RP</h1>
+    <button class="btn" id="enterBtn">Entrer</button>
+  </div>
+</div>
+
+<!-- SECTION BAS -->
+<div class="bottom-section" id="bottomSection">
+  <h2>Bienvenue sur Astralya RP</h2>
+  <div class="links">
+    <a id="openReglement">Règlement</a>
+    <a id="openReseaux">Réseaux</a>
+    <a href="https://discord.gg/7Mauqc8t4K" target="_blank">Discord</a>
+    <a href="fivem://connect/136.243.177.111:30115">Rejoindre le serveur</a>
+  </div>
+</div>
+
+<!-- MODALES -->
+<div class="modal" id="reglementModal">
+  <div class="modal-header">
+    <h2>Règlement</h2>
+    <button class="close-btn" id="closeReglement">&times;</button>
+  </div>
+  <p>Test du règlement ici.</p>
+</div>
+
+<div class="modal" id="reseauxModal">
+  <div class="modal-header">
+    <h2>Nos Réseaux</h2>
+    <button class="close-btn" id="closeReseaux">&times;</button>
+  </div>
+  <p>Instagram, Twitter, TikTok…</p>
+</div>
+
+<!-- INFOS SERVEUR -->
+<footer class="players-box">
+  <div id="status">🔴 Hors ligne</div>
+  <div>👥 Joueurs connectés : <span id="count">0 / 0</span></div>
+</footer>
+
+<script>
+// Scroll bouton
+document.getElementById('enterBtn').onclick = () =>
+  document.getElementById('bottomSection')
+  .scrollIntoView({ behavior:'smooth' });
+
+// Modales
+const openReglement = document.getElementById('openReglement');
+const closeReglement = document.getElementById('closeReglement');
+const reglementModal = document.getElementById('reglementModal');
+
+const openReseaux = document.getElementById('openReseaux');
+const closeReseaux = document.getElementById('closeReseaux');
+const reseauxModal = document.getElementById('reseauxModal');
+
+function modal(open, modal, close){
+  open.onclick = () => modal.classList.add('show');
+  close.onclick = () => modal.classList.remove('show');
+}
+
+modal(openReglement, reglementModal, closeReglement);
+modal(openReseaux, reseauxModal, closeReseaux);
+
+// 🔥 STATUT RÉEL FiveM (NUI)
+window.addEventListener("message", function (event) {
+  if (event.data.action === "updateServerStatus") {
+    if (event.data.online) {
+      document.getElementById("status").textContent = "🟢 En ligne";
+      document.getElementById("count").textContent =
+        `${event.data.players} / ${event.data.maxPlayers}`;
+    } else {
+      document.getElementById("status").textContent = "🔴 Hors ligne";
+      document.getElementById("count").textContent = "0 / 0";
+    }
+  }
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
